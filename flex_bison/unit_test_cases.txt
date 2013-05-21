@@ -1,0 +1,10 @@
+create data temp_data ( id length(8), keyword length(256) default 'DFT');
+select FC_Word.planid, planname, (int)FC_Word.planid, (int)planname primarykey planid from planinfo into temp_data.id, temp_data.keyword, temp_data.planid, temp_data.planname;
+select planid * 100, planname primarykey planid from planinfo into temp_data.id, temp_data.keyword;
+select ((int)planid + 100) * 100, planname primarykey planid from planinfo into temp_data.id, temp_data.keyword;
+select A.planid, B.ip primarykey planid from planinfo A join ipblck B on A.planid==B.planid into temp_data.id, temp_data.keyword;
+select A.planid, C.ngword primarykey planid from planinfo A join neglist B on A.planid==B.planid, neglist B join atom C on B.wordid==C.wordid into temp_data.id, temp_data.keyword;
+select planid, planname primarykey planid from planinfo where planstat1 < 2 into temp_data.id, temp_data.keyword;
+select planid, str_sum(ip) primarykey planid from planinfo group by planid into temp_data.id, temp_data.keyword;
+select !((int)db_planid!=0 && (int)db_stat1==0 && (int)db_stat2==0) as planid primarykey planid from planinfo into temp_data.planid; 
+select !((int)wstat5&1==0 && (int)wstat6&1==0 && wstat5&4==0) as planid primarykey planid from planinfo into temp_data.planid; 
