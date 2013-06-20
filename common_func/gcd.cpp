@@ -12,6 +12,8 @@ int gcd(int a, int b)
 	return a;
 }
 
+/*
+ */
 int main()
 {
 	if (1 != gcd(2, 3)
